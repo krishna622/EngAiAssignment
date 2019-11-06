@@ -1,0 +1,60 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h3>
+    Engineerai Assignment
+  </h3>
+</div>
+<h3>Use Cases</h3>
+<p>1. Periodically (every 10 seconds) pull for new posts from this API
+https://hn.algolia.com/api/v1/search_by_date?tags=story via a GET request.</p>
+<p>2. Display the title, url, created_at, and author of each post in a table.</p>
+<p>3. Upon selecting a row in the table, a modal should appear containing the raw JSON data
+of post. This modal should support dismissal by clicking outside of the modal as well as
+upon clicking a close button.</p>
+<p>4. Support the ability to filter/search the table by title.</p>
+
+
+<br>
+<app-modal [postObj]="dataObject" *ngIf="showModal" (hideModal)="showModal = false;"></app-modal>
+
+<div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Search By Title</span>
+    </div>
+    <input type="text" [(ngModel)] ="searchValue" class="form-control"  placeholder="Please enter title in lower case only" aria-label="Username" aria-describedby="basic-addon1">
+  </div>
+  
+  <br>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+    </div>
+    <button type="button" class="primary-btn" (click)="onSearchChange()" >Search</button>
+     <button type="button" class="primary-btn" (click)="getPostData()" >Reset</button>
+  </div> 
+  
+
+
+<!-- <h2>Here are some links to help you start: </h2> -->
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Index</th>
+      <th scope="col">Title</th>
+      <th scope="col">URL</th>
+      <th scope="col">Created At</th>
+      <th scope="col">Author</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="postData.length > 0; else noRecord">
+    <tr *ngFor="let data of postData; index as i" (click)="viewPost(i)" style="cursor:pointer" >
+      <th scope="row">{{i}}</th>
+      <td>{{data.title}}</td>
+      <td>{{data.url}}</td>
+      <td>{{data.created_at}}</td>
+      <td>{{data.author}}</td>
+    </tr>
+  </tbody>
+  <ng-template #noRecord>
+      No record found
+    </ng-template>
+</table>

@@ -1,0 +1,10 @@
+<!-- The Modal -->
+<div id="myModal" class="modals">
+  <!-- Modal content -->
+  <div class="modal-contents">
+    <span class="closes" (click)="hidePopup()" >&times;</span>
+    <p>View post data in raw JSON format.</p>
+    <div [innerHTML]="postObj | json"></div>
+  </div>
+
+</div>
